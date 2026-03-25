@@ -46,7 +46,7 @@ print("=" * 50)
 db.init_db()
 
 # Создаем бота
-bot = Bot(token=config.BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 storage = MemoryStorage()
 dp = Dispatcher(storage=storage)
 
@@ -57,7 +57,7 @@ register_admin_handlers(dp)
 logger.info("Регистрация основных обработчиков...")
 register_handlers(dp)
 
-logger.info(f"✅ Администраторы: {config.ADMIN_IDS}")
+logger.info(f"✅ Администраторы: {ADMIN_IDS}")
 
 async def main():
     try:
