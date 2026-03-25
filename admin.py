@@ -21,15 +21,12 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-# Получаем ID администраторов из переменной окружения
-# В GitHub Secrets нужно будет добавить ADMIN_IDS в формате: 123456789,987654321
-ADMIN_IDS = os.getenv("ADMIN_IDS", "")
+# Получаем строку с ID и преобразуем в список чисел
+ADMIN_IDS_STR = os.getenv("ADMIN_IDS", "")
+ADMIN_IDS = [int(id.strip()) for id in ADMIN_IDS_STR.split(",") if id.strip()]
 
-# Преобразуем строку в список чисел
-ADMIN_LIST = [int(id.strip()) for id in ADMIN_IDS.split(",") if id.strip()]
-
-if not ADMIN_LIST:
-    logger.warning("ADMIN_IDS не найден в переменных окружения!")
+def is_admin(user_id):
+    return user_id in ADMIN_IDS  # Теперь сравниваем число с числами в списке
 
 TEMP_DIR = "temp"
 if not os.path.exists(TEMP_DIR):
