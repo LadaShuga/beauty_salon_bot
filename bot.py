@@ -7,10 +7,23 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.exceptions import TelegramConflictError
 
-import config
+
 import database as db
 from handlers import register_handlers
 from admin import register_admin_handlers
+import os
+import logging
+
+# Настройка логирования
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Берем токен из переменных окружения
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+
+if not BOT_TOKEN:
+    logger.error("BOT_TOKEN не найден в переменных окружения!")
+    exit(1)
 
 """Основной файл для развертывания проекта"""
 
