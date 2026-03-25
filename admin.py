@@ -1,7 +1,7 @@
-import logging
+
 import sqlite3
 import csv
-import os
+
 from aiogram import F, types, Dispatcher
 from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery, FSInputFile
@@ -12,15 +12,31 @@ from aiogram.types import InlineKeyboardButton
 
 import database as db
 import keyboards as kb
-import config
+
 from datetime import datetime, timedelta
-"""Админ панеьл"""
+"""Админ панель"""
 
 logger = logging.getLogger(__name__)
 
+import os
+import logging
+
+logger = logging.getLogger(__name__)
+
+# Получаем ID администраторов из переменной окружения
+# В GitHub Secrets нужно будет добавить ADMIN_IDS в формате: 123456789,987654321
+ADMIN_IDS = os.getenv("ADMIN_IDS", "")
+
+# Преобразуем строку в список чисел
+ADMIN_LIST = [int(id.strip()) for id in ADMIN_IDS.split(",") if id.strip()]
+
+if not ADMIN_LIST:
+    logger.warning("ADMIN_IDS не найден в переменных окружения!")
+
+
 # Проверка на администратора
 def is_admin(user_id: int) -> bool:
-    return user_id in config.ADMIN_IDS
+    return user_id in ADMIN_IDS
 
 # Состояния для админ-панели
 class AdminStates(StatesGroup):
