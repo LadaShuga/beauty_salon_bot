@@ -33,6 +33,10 @@ ADMIN_LIST = [int(id.strip()) for id in ADMIN_IDS.split(",") if id.strip()]
 if not ADMIN_LIST:
     logger.warning("ADMIN_IDS не найден в переменных окружения!")
 
+TEMP_DIR = "temp"
+if not os.path.exists(TEMP_DIR):
+    os.makedirs(TEMP_DIR)
+    logger.info(f"Создана папка {TEMP_DIR}")
 
 # Проверка на администратора
 def is_admin(user_id: int) -> bool:
