@@ -16,8 +16,6 @@ import keyboards as kb
 from datetime import datetime, timedelta
 """Админ панель"""
 
-logger = logging.getLogger(__name__)
-
 import os
 import logging
 
