@@ -25,6 +25,17 @@ if not BOT_TOKEN:
     logger.error("BOT_TOKEN не найден в переменных окружения!")
     exit(1)
 
+logger = logging.getLogger(__name__)
+
+# Получаем ID администраторов из переменной окружения
+# В GitHub Secrets нужно будет добавить ADMIN_IDS в формате: 123456789,987654321
+ADMIN_IDS = os.getenv("ADMIN_IDS", "")
+
+# Преобразуем строку в список чисел
+ADMIN_LIST = [int(id.strip()) for id in ADMIN_IDS.split(",") if id.strip()]
+
+if not ADMIN_LIST:
+    logger.warning("ADMIN_IDS не найден в переменных окружения!")
 """Основной файл для развертывания проекта"""
 
 # Для Windows
