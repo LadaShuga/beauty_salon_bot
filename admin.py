@@ -847,11 +847,11 @@ async def admin_export(message: Message):
     if not is_admin(message.from_user.id):
         return
     
-    if not os.path.exists(config.TEMP_DIR):
-        os.makedirs(config.TEMP_DIR)
+    if not os.path.exists(TEMP_DIR):
+        os.makedirs(TEMP_DIR)
     
     filename = f"export_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
-    filepath = os.path.join(config.TEMP_DIR, filename)
+    filepath = os.path.join(TEMP_DIR, filename)
     
     try:
         conn = sqlite3.connect('salon.db')
